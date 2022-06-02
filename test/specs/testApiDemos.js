@@ -1,4 +1,4 @@
-describe("Teste apidemos.apk", () => {
+describe("Aplicação API Demos", () => {
     
     afterEach(async() =>{
         driver.reset();
