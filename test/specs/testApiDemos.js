@@ -4,7 +4,7 @@ describe("Teste apidemos.apk", () => {
         driver.reset();
     });
     
-    xit("Interações do aplicativo em App/Alert Dialogs/OK CANCEL DIALOG WITH MESSAGE", async() => {
+    it("Interações do aplicativo em App/Alert Dialogs/OK CANCEL DIALOG WITH MESSAGE", async() => {
         await $('android=new UiSelector().text("App").className("android.widget.TextView")').click();
         await $('android=new UiSelector().text("Alert Dialogs").className("android.widget.TextView")').click();
         const botaoVisivel = await $('id=two_buttons').isDisplayed();
@@ -17,10 +17,12 @@ describe("Teste apidemos.apk", () => {
          expect(tituloVisivel).toBe('App/Alert Dialogs');
          await $('id=two_buttons').click();
          await $('android=new UiSelector().text("CANCEL")').click();
+         
+         // Verificando o retorno para a tela anterior
          expect(tituloVisivel).toBe('App/Alert Dialogs');
     });
 
-    xit("Interações do aplicativo em App/Alert Dialogs/LIST DIALOG", async() => {
+    it("Interações do aplicativo em App/Alert Dialogs/LIST DIALOG", async() => {
         await $('android=new UiSelector().text("App").className("android.widget.TextView")').click();
         await $('android=new UiSelector().text("Alert Dialogs").className("android.widget.TextView")').click();
         await $("id=select_button").click();
@@ -43,7 +45,7 @@ describe("Teste apidemos.apk", () => {
         expect(modalMensagem).toBe("You selected: 0 , Command one");
     });
 
-    xit("Interações do aplicativo em App/Fragment/Hide and Show", async() => {
+    it("Interações do aplicativo em App/Fragment/Hide and Show", async() => {
         await $('android=new UiSelector().text("App").className("android.widget.TextView")').click();
         await $('android=new UiSelector().text("Fragment").className("android.widget.TextView")').click();
         await $('android=new UiSelector().text("Hide and Show").className("android.widget.TextView")').click();
@@ -51,27 +53,30 @@ describe("Teste apidemos.apk", () => {
         expect(titulo).toBe("Demonstration of hiding and showing fragments.")
     });
 
-    xit('Interagindo com os botões de MOSTRAR em App/Fragment/Hide and Show', async() => {
+    it('Interagindo com os botões de MOSTRAR em App/Fragment/Hide and Show', async() => {
         await $('android=new UiSelector().text("App").className("android.widget.TextView")').click();
         await $('android=new UiSelector().text("Fragment").className("android.widget.TextView")').click();
         await $('android=new UiSelector().text("Hide and Show").className("android.widget.TextView")').click();
         
+        // Interagindo com os botões hide and show
         const botaoHideShow1 = await $("id=frag1hide").getText();
-        expect(botaoHideShow1).toBe("HIDE");
-        const tituloInput1 = await $('android=new UiSelector().text("The fragment saves and restores this text.")').isDisplayed();
-        expect(tituloInput1).toBe(true);
-        await $("id=frag1hide").click();
         const botaoHideShow2 = await $("id=frag2hide").getText();
-        expect(botaoHideShow2).toBe("HIDE");
+        const tituloInput1 = await $('android=new UiSelector().text("The fragment saves and restores this text.")').isDisplayed();
         const tituloInput2 = await $('android=new UiSelector().text("The TextView saves and restores this text.")').isDisplayed();
+        expect(botaoHideShow1).toBe("HIDE");
+        expect(botaoHideShow2).toBe("HIDE");
+        expect(tituloInput1).toBe(true);
         expect(tituloInput2).toBe(true);
-        await $("id=frag2hide").click();   
+        await $("id=frag1hide").click();
+        await $("id=frag2hide").click();
     });
 
-    xit("Fluxo e utilização do aplicativo em App/Action Bar/Display options, verificando a opção DISPLAY_HOME_AS_UP", async() => {
+    it("Interação no aplicativo em App/Action Bar/Display options, verificando a opção DISPLAY_HOME_AS_UP", async() => {
         await $('android=new UiSelector().text("App").className("android.widget.TextView")').click();
         await $('android=new UiSelector().text("Action Bar").className("android.widget.TextView")').click();
         await $('android=new UiSelector().text("Display Options").className("android.widget.TextView")').click();
+        
+        // Validando as interações com a opção DISPLAY_HOME_AS_UP
         const visivelDisplayHome = await $("id=toggle_home_as_up").isDisplayed();
         expect(visivelDisplayHome).toBe(true);
         await $("id=toggle_home_as_up").click();
@@ -79,10 +84,12 @@ describe("Teste apidemos.apk", () => {
         expect(titulo).toBe("App/Action Bar/Display Options");
     });
 
-    xit("Fluxo e utilização do aplicativo em App/Action Bar/Display options, verificando a opção DISPLAY_SHOW_TITLE", async() => {
+    it("Interagindo com o aplicativo em App/Action Bar/Display options, verificando a opção DISPLAY_SHOW_TITLE", async() => {
         await $('android=new UiSelector().text("App").className("android.widget.TextView")').click();
         await $('android=new UiSelector().text("Action Bar").className("android.widget.TextView")').click();
         await $('android=new UiSelector().text("Display Options").className("android.widget.TextView")').click();
+        
+        // Interagindo com o botão 'DISPLAY_SHOW_TITLE'
         const visivelDisplayShow = await $("id=toggle_show_title").isDisplayed();
         expect(visivelDisplayShow).toBe(true);
         const tituloAtivado = await $("android.widget.TextView").getText();
@@ -92,7 +99,7 @@ describe("Teste apidemos.apk", () => {
         expect(tituloDesativado).toBe("");
     });
 
-    xit("Interagindo nas opções do aplicativo em App/Action Bar/Display options, verificando a opção DISPLAY_SHOW_CUSTOM", async() => {
+    it("Interagindo nas opções do aplicativo em App/Action Bar/Display options, verificando a opção DISPLAY_SHOW_CUSTOM", async() => {
         await $('android=new UiSelector().text("App").className("android.widget.TextView")').click();
         await $('android=new UiSelector().text("Action Bar").className("android.widget.TextView")').click();
         await $('android=new UiSelector().text("Display Options").className("android.widget.TextView")').click();
@@ -120,6 +127,8 @@ describe("Teste apidemos.apk", () => {
         const botaoNavigation = await $("id=toggle_navigation").isDisplayed();
         expect(botaoNavigation).toBe(true);
         await $("id=toggle_navigation").click();
+        
+        // Verificando as abas "tab" na tela
         const tab1 = await $('android=new UiSelector().text("TAB 1").className("android.widget.TextView")').isDisplayed();
         const tab2 = await $('android=new UiSelector().text("TAB 2").className("android.widget.TextView")').isDisplayed();
         const tab3 = await $('android=new UiSelector().text("TAB 3").className("android.widget.TextView")').isDisplayed();
@@ -130,6 +139,8 @@ describe("Teste apidemos.apk", () => {
         await $('android=new UiSelector().text("TAB 2").className("android.widget.TextView")').click();
         await $('android=new UiSelector().text("TAB 3").className("android.widget.TextView")').click();
         await $("id=toggle_navigation").click();
+        await $("id=toggle_navigation").pause(1000);
+        // Verificando se as abas saíram
         const tabInativa = await $('android=new UiSelector().text("TAB 1").className("android.widget.TextView")').isDisplayed();
         expect(tabInativa).toBe(false);  
     });
