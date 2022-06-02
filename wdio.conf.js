@@ -1,3 +1,5 @@
+const path = require("path")
+
 exports.config = {
     //
     // ====================
@@ -52,7 +54,9 @@ exports.config = {
     //
     capabilities: [{
         platformName: "Android",
-        automationName: "UiAutomator2"
+        automationName: "UiAutomator2",
+        path: "/wd/hub",
+        app: path.join(__dirname, "app", "apidemos.apk")
         
     }],
     //
